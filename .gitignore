@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+.eggs/
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Milvus Lite database files
+*.db
+milvus_*.db
+milvus_data/
+
+# PDF data files (user-supplied, not stored in repo)
+data/
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
