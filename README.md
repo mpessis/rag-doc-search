@@ -6,7 +6,7 @@ A lightweight semantic search pipeline for querying technical documentation usin
 
 ## Why This Matters
 
-Dense technical documentation is everywhere — protocol specs, compliance policies, API references, onboarding guides — and keyword search consistently fails it. The right answer is buried in a paragraph that doesn't share a single word with your query.
+Dense technical documentation is everywhere (protocol specs, compliance policies, API references, onboarding guides) and keyword search consistently fails it. The right answer is buried in a paragraph that doesn't share a single word with your query.
 
 This pipeline lets anyone ask questions in plain English and get back the exact passages that answer them:
 
@@ -51,7 +51,7 @@ Pmp object: A container for any private marketplace (PMP) deals applicable to
 this impression for a programmatic guaranteed or private auction...
 ```
 
-Relevant results at scores above 0.60 — without knowing the exact field name or page number upfront.
+Relevant results at scores above 0.60, without knowing the exact field name or page number upfront.
 
 ## Setup
 
