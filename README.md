@@ -2,6 +2,8 @@
 
 A lightweight semantic search pipeline for querying technical documentation using natural language. Demonstrated with the OpenRTB 2.6 programmatic advertising specification.
 
+**Built with** Python · Milvus Lite · sentence-transformers · all-MiniLM-L6-v2 · pypdf
+
 ## Why This Matters
 
 Dense technical documentation is everywhere — protocol specs, compliance policies, API references, onboarding guides — and keyword search consistently fails it. The right answer is buried in a paragraph that doesn't share a single word with your query.
@@ -17,7 +19,7 @@ No external API, no server, no infrastructure. Runs entirely on a laptop.
 
 ## How it works
 
-```
+```bash
 PDF → chunk (500 chars, 100 overlap) → embed (all-MiniLM-L6-v2) → Milvus Lite → cosine search
 ```
 
@@ -30,7 +32,7 @@ PDF → chunk (500 chars, 100 overlap) → embed (all-MiniLM-L6-v2) → Milvus L
 
 Querying the OpenRTB 2.6 spec:
 
-```
+```bash
 $ python -m src.search "What is a bid floor?"
 
 --- Result 1 | score=0.6100 | OpenRTB-2-6_FINAL.pdf p.29 ---
@@ -101,6 +103,13 @@ The demo uses OpenRTB 2.6, but the pipeline is document-agnostic. Point it at an
 - Legal contracts or regulatory filings
 
 One command to index, one command to search.
+
+## What's Next
+
+- Hybrid search with BM25
+- Multi-document indexing
+- LLM answer generation with citations
+- Semantic chunking experiments
 
 ## Project layout
 
