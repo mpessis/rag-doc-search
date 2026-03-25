@@ -30,8 +30,8 @@ def _clean(text: str) -> str:
 
 def chunk_text(
     text: str,
-    chunk_size: int = 500,
-    overlap: int = 100,
+    chunk_size: int = 300,
+    overlap: int = 50,
 ) -> list[str]:
     """Split *text* into overlapping windows of roughly *chunk_size* characters.
 
@@ -74,7 +74,7 @@ def chunk_text(
     return chunks
 
 
-def ingest_pdf(pdf_path: str | Path, chunk_size: int = 500, overlap: int = 100) -> list[Passage]:
+def ingest_pdf(pdf_path: str | Path, chunk_size: int = 300, overlap: int = 50) -> list[Passage]:
     """Read *pdf_path*, extract text page-by-page, and return a list of :class:`Passage` objects.
 
     Args:

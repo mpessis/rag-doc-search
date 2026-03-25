@@ -88,8 +88,8 @@ def run_pipeline(
     pdf_path: str | Path,
     db_path: str = DB_PATH,
     collection_name: str = COLLECTION_NAME,
-    chunk_size: int = 500,
-    overlap: int = 100,
+    chunk_size: int = 300,
+    overlap: int = 50,
     force: bool = False,
 ) -> None:
     """Ingest a PDF and populate a Milvus Lite database.
@@ -136,10 +136,18 @@ def run_pipeline(
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python -m src.pipeline <path/to/document.pdf> [--force]")
-        sys.exit(1)
+    import argparse
 
-    path = sys.argv[1]
-    force_flag = "--force" in sys.argv
-    run_pipeline(path, force=force_flag)
+    parser = argparse.ArgumentParser(description="Ingest a PDF into a Milvus Lite index.")
+    parser.add_argument("pdf_path", help="Path to the source PDF.")
+    parser.add_argument("--force", action="store_true", help="Drop and recreate the collection.")
+    parser.add_argument("--chunk-size", type=int, default=300, help="Target chars per passage.")
+    parser.add_argument("--overlap", type=int, default=50, help="Overlap chars between passages.")
+    args = parser.parse_args()
+
+    run_pipeline(
+        args.pdf_path,
+        chunk_size=args.chunk_size,
+        overlap=args.overlap,
+        force=args.force,
+    )

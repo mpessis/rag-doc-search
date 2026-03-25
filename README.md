@@ -20,7 +20,7 @@ No external API, no server, no infrastructure. Runs entirely on a laptop.
 ## How it works
 
 ```bash
-PDF → chunk (500 chars, 100 overlap) → embed (all-MiniLM-L6-v2) → Milvus Lite → cosine search
+PDF → chunk (300 chars, 50 overlap) → embed (all-MiniLM-L6-v2) → Milvus Lite → cosine search
 ```
 
 1. **Ingest** – `pypdf` extracts text page by page; text is split into overlapping passages.
@@ -52,6 +52,25 @@ this impression for a programmatic guaranteed or private auction...
 ```
 
 Relevant results at scores above 0.60, without knowing the exact field name or page number upfront.
+
+## Evaluation & Tuning
+
+An eval harness (`src/eval.py`) scores retrieval accuracy across 10 test queries with expected-keyword matching. Running it against four chunking configurations on the OpenRTB 2.6 spec:
+
+| Config | Chunks | Accuracy | Avg Score |
+|--------|--------|----------|-----------|
+| **300 chars / 50 overlap** | **843** | **100%** | **0.6260** |
+| 500 chars / 100 overlap | 530 | 100% | 0.5931 |
+| 750 chars / 150 overlap | 364 | 100% | 0.5633 |
+| 1000 chars / 200 overlap | 272 | 90% | 0.5372 |
+
+Smaller chunks produced higher similarity scores and better accuracy. The 1000-char config was the only one to miss a query ("What is a bid floor?") because the relevant keywords were diluted in a larger passage. The pipeline defaults (300 chars, 50 overlap) reflect the best-performing configuration.
+
+Reproduce with:
+
+```bash
+python -m src.eval ~/Downloads/OpenRTB-2-6_FINAL.pdf
+```
 
 ## Setup
 
@@ -119,6 +138,7 @@ src/
   embed.py     # list[Passage] → list[vector]
   search.py    # query string → list[SearchResult]
   pipeline.py  # orchestrates ingest → embed → store
+  eval.py      # retrieval quality evaluation harness
 requirements.txt
 ```
 
